@@ -1,6 +1,6 @@
-# Snyk "breaking" demo: snyk test (and optional code / container / iac).
-# Flip SNYK_RUN_* to 'true' to enable a step without editing the run: blocks.
-name: Snyk SCA, Code, IaC and Container CLI breaking build example
+# Snyk "monitor" demo: report-style monitor + optional code / container / iac.
+# Use SNYK_RUN_* flags to turn steps on; disabled steps still appear, skipped in the UI.
+name: Snyk SCA, Code, IaC and Container CLI monitor example
 
 on:
   push:
@@ -43,18 +43,18 @@ jobs:
       - name: Snyk Open Source # For testing and failing please add snyk test before snyk monitor
         if: env.SNYK_RUN_OPEN_SOURCE == 'true'
         run: |
-          snyk test
+          snyk monitor
       # For a list of additional available flags/options see: https://docs.snyk.io/snyk-cli/commands
       - name: Snyk Code # Remove || true to fail if there are vulnerabilities
         if: env.SNYK_RUN_CODE == 'true'
         run: |
-          snyk code test
+          snyk code test --report --project-name="mike-peters-snyk/juice-shop"
       - name: Snyk Container # Rename your image, for testing and failing please add snyk container test before snyk container monitor
         if: env.SNYK_RUN_CONTAINER == 'true'
         run: |
           docker build . -t yourimage:tag
-          snyk container test yourimage:tag --file=Dockerfile
+          snyk container monitor yourimage:tag --file=Dockerfile
       - name: Snyk IaC # Remove || true to fail if there are vulnerabilities
         if: env.SNYK_RUN_IAC == 'true'
         run: |
-          snyk iac test
+          snyk iac test --report --project-name="mike-peters-snyk/juice-shop"
