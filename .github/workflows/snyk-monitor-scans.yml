@@ -1,12 +1,9 @@
-# Snyk "monitor" demo: report-style monitor + optional code / container / iac.
-# Use SNYK_RUN_* flags to turn steps on; disabled steps still appear, skipped in the UI.
+# Snyk "monitor" demo (manual only): report-style monitor — not triggered on push/PR.
+# Run from Actions → this workflow → Run workflow. CI uses snyk-breaking-scans.yml only.
 name: Snyk SCA, Code, IaC and Container CLI monitor example
 
 on:
-  push:
-    branches: [master]
-  pull_request:
-    branches: [master]
+  workflow_dispatch:
 
 jobs:
   build:

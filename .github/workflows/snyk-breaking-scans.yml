@@ -1,5 +1,5 @@
-# Snyk "breaking" demo: snyk test (and optional code / container / iac).
-# Flip SNYK_RUN_* to 'true' to enable a step without editing the run: blocks.
+# Snyk "breaking" demo: snyk test + code + container + iac (all enabled below).
+# Flip SNYK_RUN_* to 'false' to skip a step without commenting it out.
 name: Snyk SCA, Code, IaC and Container CLI breaking build example
 
 on:
@@ -15,9 +15,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SNYK_RUN_OPEN_SOURCE: 'true'
-      SNYK_RUN_CODE: 'false'
-      SNYK_RUN_CONTAINER: 'false'
-      SNYK_RUN_IAC: 'false'
+      SNYK_RUN_CODE: 'true'
+      SNYK_RUN_CONTAINER: 'true'
+      SNYK_RUN_IAC: 'true'
 
     strategy:
       matrix:
